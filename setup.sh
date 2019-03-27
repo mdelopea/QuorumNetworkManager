@@ -77,15 +77,15 @@ then
         echo 'Updating Quorum...'
         cd quorum/
         git fetch --tags
-        git checkout v2.0.2
+        git checkout v2.0.1
         make all
-        echo 'Updated Quorum to 2.0.2'
+        echo 'Updated Quorum to 2.0.1'
         cd ..
       else
         echo 'Skipping Quorum update: Detected quorum not installed in' $QUORUM_TARGET_DIR '- human intervention required'
       fi
     else
-      echo 'Quorum version other than 2.0.2 detected and/or installed in unknown location - human intervention required'
+      echo 'Quorum version other than 2.0.1 detected and/or installed in unknown location - human intervention required'
       echo 'Current:' $QUORUM_COMMIT
       echo 'Exiting...'
       exit
@@ -98,7 +98,7 @@ else
     git clone https://github.com/jpmorganchase/quorum.git
     cd quorum/
     git fetch --tags
-    git checkout v2.0.2
+    git checkout v2.0.1
     make all
     DETECTED_GETH_PATH=$(which geth)
     if [[ $DETECTED_GETH_PATH = "" ]]
@@ -108,7 +108,7 @@ else
       source ~/.bashrc
     fi
     cd ..
-    echo 'Installed Quorum 2.0.2'
+    echo 'Installed Quorum 2.0.1'
   else
     echo 'Skipped installing Quorum'
   fi
