@@ -7,11 +7,15 @@ let peerHandler = require('./peerHandler.js')
 let fundingHandler = require('./fundingHandler.js')
 let ports = require('./config.js').ports
 let setup = require('./config.js').setup
+let service = require('./config.js').service
 
 function startRaftNode(result, cb){
   console.log('[*] Starting raft node...')
   let options = {encoding: 'utf8', timeout: 100*1000}
+  let ethstats = 'non-coordinator-repsol-'+create_UUID()+':'+service.secret+'@'+service.name
   let cmd = './startRaftNode.sh'
+  cmd += ' '+ethstats
+  cmd += ' '+service.secret
   cmd += ' '+setup.targetGasLimit
   cmd += ' '+ports.gethNode
   cmd += ' '+ports.gethNodeRPC
@@ -99,6 +103,16 @@ function handleStartingNewRaftNetwork(options, cb){
     }
     cb(err, networks)
   })
+}
+
+function create_UUID(){
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
 }
 
 exports.HandleStartingNewRaftNetwork = handleStartingNewRaftNetwork
