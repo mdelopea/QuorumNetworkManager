@@ -17,6 +17,10 @@ config.ports.raftHttp = config.ports.gethNode + 20000  // This is a requirement 
 config.ports.devp2p = 30303
 config.ports.constellation = 9000
 
+config.service = {}
+config.service.name = 'release-name-ethereum-ethstats-service.default'
+config.service.secret = 'my-secret-for-connecting-to-ethstats'
+
 config.identity = {}
 config.identity.nodeName = env.NODE_NAME ? env.NODE_NAME : 'unset'
 
