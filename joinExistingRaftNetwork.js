@@ -10,12 +10,16 @@ let peerHandler = require('./peerHandler.js')
 let fundingHandler = require('./fundingHandler.js')
 let ports = require('./config.js').ports
 let setup = require('./config.js').setup
+let service = require('./config.js').service
 
 prompt.start()
 
 function startRaftNode(result, cb){
   let options = {encoding: 'utf8', timeout: 100*1000}
+  let ethstats = 'non-coordinator-repsol-'+create_UUID()+':'+service.secret+'@'+service.name
   let cmd = './startRaftNode.sh'
+  cmd += ' '+ethstats
+  cmd += ' '+service.secret
   cmd += ' '+setup.targetGasLimit
   cmd += ' '+ports.gethNode
   cmd += ' '+ports.gethNodeRPC
@@ -137,6 +141,7 @@ function getRemoteIpAddress(cb){
   } 
 }
 
+
 function handleJoiningRaftNetwork(options, cb){
   config = {}
   config.localIpAddress = options.localIpAddress
@@ -152,6 +157,16 @@ function handleJoiningRaftNetwork(options, cb){
       cb(err, networks)
     })
   })
+}
+
+function create_UUID(){
+    var dt = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (dt + Math.random()*16)%16 | 0;
+        dt = Math.floor(dt/16);
+        return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+    });
+    return uuid;
 }
 
 exports.HandleJoiningRaftNetwork = handleJoiningRaftNetwork
