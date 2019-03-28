@@ -20,9 +20,9 @@ GO_PATH=$(which go)
 if [[ $GO_PATH != "" ]]
 then
   GO_VERSION=$(go version)
-  if [[ $GO_VERSION != 'go version go1.10.3 linux/amd64' ]] && [[ $GO_VERSION != "" ]]
+  if [[ $GO_VERSION != 'go version go1.8.7 linux/amd64' ]] && [[ $GO_VERSION != "" ]]
   then
-    echo 'go version other than 1.10.3 detected, please see v0.8.0 release notes'
+    echo 'go version other than 1.8.7 detected, please see v0.8.0 release notes'
     echo 'current:' $GO_VERSION
     echo 'exiting...'
     exit
@@ -34,10 +34,10 @@ GO_PATH=$(which go)
 if [[ $GO_PATH = "" ]]
 then
   echo 'Installing go...'
-  wget https://storage.googleapis.com/golang/go1.10.3.linux-amd64.tar.gz
-  tar -xf go1.10.3.linux-amd64.tar.gz
+  wget https://storage.googleapis.com/golang/go1.8.7.linux-amd64.tar.gz
+  tar -xf go1.8.7.linux-amd64.tar.gz
   sudo cp -r go/ /usr/local/
-  rm -rf go/ go1.10.3.linux-amd64.tar.gz
+  rm -rf go/ go1.8.7.linux-amd64.tar.gz
   DETECTED_GO_PATH=$(which go)
   if [[ $DETECTED_GO_PATH = "" ]]
   then
