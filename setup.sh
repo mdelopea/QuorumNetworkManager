@@ -48,7 +48,7 @@ then
     export GOPATH=$HOME/projects/go
     export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
   fi
-  echo 'Installed go version 1.10.3'
+  echo 'Installed go version 1.8.7'
 else
   echo 'Skipped installing go'
 fi
