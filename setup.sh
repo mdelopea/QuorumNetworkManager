@@ -20,9 +20,9 @@ GO_PATH=$(which go)
 if [[ $GO_PATH != "" ]]
 then
   GO_VERSION=$(go version)
-  if [[ $GO_VERSION != 'go version go1.8.7 linux/amd64' ]] && [[ $GO_VERSION != "" ]]
+  if [[ $GO_VERSION != 'go version go1.11.3 linux/amd64' ]] && [[ $GO_VERSION != "" ]]
   then
-    echo 'go version other than 1.8.7 detected, please see v0.8.0 release notes'
+    echo 'go version other than 1.11.3 detected, please see v0.8.0 release notes'
     echo 'current:' $GO_VERSION
     echo 'exiting...'
     exit
@@ -34,10 +34,10 @@ GO_PATH=$(which go)
 if [[ $GO_PATH = "" ]]
 then
   echo 'Installing go...'
-  wget https://storage.googleapis.com/golang/go1.8.7.linux-amd64.tar.gz
-  tar -xf go1.8.7.linux-amd64.tar.gz
+  wget https://storage.googleapis.com/golang/go1.11.3.linux-amd64.tar.gz
+  tar -xf go1.11.3.linux-amd64.tar.gz
   sudo cp -r go/ /usr/local/
-  rm -rf go/ go1.8.7.linux-amd64.tar.gz
+  rm -rf go/ go1.11.3.linux-amd64.tar.gz
   DETECTED_GO_PATH=$(which go)
   if [[ $DETECTED_GO_PATH = "" ]]
   then
@@ -48,7 +48,7 @@ then
     export GOPATH=$HOME/projects/go
     export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
   fi
-  echo 'Installed go version 1.8.7'
+  echo 'Installed go version 1.11.3'
 else
   echo 'Skipped installing go'
 fi
@@ -66,7 +66,7 @@ then
     fi
   fi
   QUORUM_COMMIT=$(geth version | sed -n '3,3p' | sed 's/ /\n/g' | tail -1)
-  if [[ $QUORUM_COMMIT != "df4267a25637a5497a3db9fbde4603a3dcd6aa14" ]] # incorrect version of quorum detected
+  if [[ $QUORUM_COMMIT != "8f678278aab02529cc56d934606e5b275b94f6cf" ]] # incorrect version of quorum detected
   then
     if [ -d "quorum" ]
     then
@@ -77,15 +77,15 @@ then
         echo 'Updating Quorum...'
         cd quorum/
         git fetch --tags
-        git checkout v2.0.1
+        git checkout v2.2.0
         make all
-        echo 'Updated Quorum to 2.0.1'
+        echo 'Updated Quorum to 2.2.0'
         cd ..
       else
         echo 'Skipping Quorum update: Detected quorum not installed in' $QUORUM_TARGET_DIR '- human intervention required'
       fi
     else
-      echo 'Quorum version other than 2.0.1 detected and/or installed in unknown location - human intervention required'
+      echo 'Quorum version other than 2.2.0 detected and/or installed in unknown location - human intervention required'
       echo 'Current:' $QUORUM_COMMIT
       echo 'Exiting...'
       exit
@@ -98,7 +98,7 @@ else
     git clone https://github.com/jpmorganchase/quorum.git
     cd quorum/
     git fetch --tags
-    git checkout v2.0.1
+    git checkout v2.2.0
     make all
     DETECTED_GETH_PATH=$(which geth)
     if [[ $DETECTED_GETH_PATH = "" ]]
@@ -108,7 +108,7 @@ else
       source ~/.bashrc
     fi
     cd ..
-    echo 'Installed Quorum 2.0.1'
+    echo 'Installed Quorum 2.2.0'
   else
     echo 'Skipped installing Quorum'
   fi
